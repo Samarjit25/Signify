@@ -15,11 +15,12 @@ function draw(e) {
 
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
-    ctx.lineTo(e.offsetX, e.offsetY);
-    ctx.stroke();
-    [lastX, lastY] = [e.offsetX, e.offsetY];
+    const pos = getMousePos(e);
+ctx.lineTo(pos.x, pos.y);
 
-    saveState();
+    ctx.stroke();
+
+    [lastX, lastY] = [e.offsetX, e.offsetY];
 }
 
 function saveState() {
@@ -28,7 +29,7 @@ function saveState() {
 
 function undoLastAction() {
     if (drawingHistory.length > 0) {
-        drawingHistory.pop();
+        drawingHistory.pop(); // remove current state
         if (drawingHistory.length > 0) {
             ctx.putImageData(drawingHistory[drawingHistory.length - 1], 0, 0);
         } else {
@@ -36,15 +37,34 @@ function undoLastAction() {
         }
     }
 }
+function resizeCanvas() {
+    const canvas = document.getElementById('signature-pad');
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+}
+window.addEventListener('load', resizeCanvas);
+window.addEventListener('resize', resizeCanvas);
 
+function getMousePos(e) {
+    const rect = canvas.getBoundingClientRect();
+    return {
+        x: (e.clientX - rect.left) * (canvas.width / rect.width),
+        y: (e.clientY - rect.top) * (canvas.height / rect.height)
+    };
+}
+// Only save state once per stroke
 canvas.addEventListener('mousedown', (e) => {
     isDrawing = true;
     [lastX, lastY] = [e.offsetX, e.offsetY];
-    saveState();
 });
 
 canvas.addEventListener('mousemove', draw);
-canvas.addEventListener('mouseup', () => isDrawing = false);
+canvas.addEventListener('mouseup', () => {
+    if (isDrawing) {
+        isDrawing = false;
+        saveState(); // Save after completing the stroke
+    }
+});
 canvas.addEventListener('mouseout', () => isDrawing = false);
 
 document.getElementById('clear').addEventListener('click', () => {
@@ -61,4 +81,3 @@ document.getElementById('save').addEventListener('click', () => {
     link.download = 'signature.png';
     link.click();
 });
-

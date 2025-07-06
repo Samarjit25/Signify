@@ -1,109 +1,131 @@
+/* Reset & Base */
 body {
+    margin: 0;
+    font-family: 'Inter', sans-serif; /* <-- updated here */
+    background: linear-gradient(145deg, #acd5d6, #ffffff);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
-    background: linear-gradient(135deg, #ece9e6 0%, #ffffff 100%);
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+/* Container Styling */
 .container {
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
     text-align: center;
-    max-width: 700px;
     width: 100%;
+    max-width: 720px;
 }
 
+/* Headings */
 h1 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
-    font: 900;
-}
-h2{
-    font: italic;
-    font-size: 16px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 10px;
 }
 
+h2 {
+    font-size: 16px;
+   
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Signature Canvas Area */
 .signature-container {
-    margin-bottom: 20px;
-    border: 2px dashed #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: #f9f9f9;
+    border: 2px dashed #ddd;
+    border-radius: 12px;
+    padding: 15px;
+    background-color: #fff;
+    margin-bottom: 30px;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.signature-container:hover {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
 }
 
 canvas {
-    display: block;
-    margin: 0 auto;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    cursor: crosshair;
+    border: 1px solid #ccc;
+    border-radius: 8px;
     width: 100%;
     height: auto;
+    cursor : pointer;
+    background-color: #ffffff; /* Keep canvas white */
 }
 
+/* Buttons Layout */
 .button-container {
     display: flex;
-    justify-content: center;
-    gap: 10px;
     flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
 }
 
+/* Button Style */
 .btn {
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 12px 24px;
+    font-size: 15px;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    /* background-color: #007bff; */
-    color: white;
-    transition: background-color 0.3s ease;
-}
-#save{
-    background-color: #34C759;
-}
-#clear{
-    background-color: #c70000;
-}
-#undo{
-    background-color: #0056b3;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
 }
 
+/* Individual Buttons */
+#save {
+    background-color: #28a745;
+}
+
+#clear {
+    background-color: #dc3545;
+}
+
+#undo {
+    background-color: #007bff;
+}
+
+/* Hover Effects */
 .btn:hover {
-    background-color: #0056b3;
+    transform: translateY(-2px);
+    opacity: 0.9;
 }
 
+/* Responsive Tweaks */
 @media (max-width: 768px) {
     .container {
-        padding: 20px;
+        padding: 25px 20px;
     }
 
     h1 {
-        font-size: 20px;
+        font-size: 22px;
     }
 
-    .signature-container {
-        padding: 5px;
+    h2 {
+        font-size: 14px;
     }
 
     .btn {
-        padding: 8px 16px;
+        padding: 10px 18px;
         font-size: 14px;
     }
 }
 
 @media (max-width: 480px) {
-    h1 {
-        font-size: 18px;
+    .btn {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
     }
 
-    .btn {
-        padding: 6px 12px;
-        font-size: 12px;
+    .button-container {
+        flex-direction: column;
+        align-items: stretch;
     }
 }
